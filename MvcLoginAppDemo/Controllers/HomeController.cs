@@ -75,6 +75,9 @@ namespace MvcLoginAppDemo.Controllers
         public ActionResult Logout()
         {
             Session.Abandon();
+            string xx = "peeyush";    
+
+
             return RedirectToAction("Login", "Home");
         }
 
