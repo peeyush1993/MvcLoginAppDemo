@@ -1,0 +1,40 @@
+﻿@model MvcLoginAppDemo.Models.ProductDetailModel
+@{
+    ViewBag.Title = "UserDashBoard";
+}
+<style>
+    table, td, th {
+        border: 1px solid green;
+        border-collapse: collapse;
+    }
+
+    th {
+        border: 1px solid black;
+        background-color: green;
+        color: white;
+    }
+</style>
+@using (Html.BeginForm())
+{
+     
+ <fieldset>
+     <legend>Welcome to admin dashboard</legend>
+     @if (Session["UserName"] != null)
+     {
+         <text>Welcome :: @Session["UserName"].ToString() </text>
+
+     }
+
+     @Html.ActionLink("Log Out","Logout","Home")
+ </fieldset>
+    var grid = new WebGrid(Model.listofLogin, canSort: false);
+    <div>
+        @grid.GetHtml(columns: grid.Columns(
+ grid.Column("UsernName", "UsernName"),
+ grid.Column("Password", "Password")
+    ), mode: WebGridPagerModes.Numeric)
+
+
+
+    </div>
+}

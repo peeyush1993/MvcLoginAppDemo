@@ -1,0 +1,25 @@
+﻿@model MvcLoginAppDemo.Models.loginModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login","Home",FormMethod.Post))
+{
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+
+@Html.LabelFor(a => a.UsernName)
+@Html.TextBoxFor(a => a.UsernName)
+@Html.ValidationMessageFor(a => a.UsernName)
+<br/>
+@Html.LabelFor(a => a.Password)
+@Html.PasswordFor(a => a.Password)
+@Html.ValidationMessageFor(a => a.Password)
+
+
+    @Html.ValidationMessage("Error")
+<input type="submit" value="Login" />
+
+}

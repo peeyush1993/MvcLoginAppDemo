@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DB_Dev_JaipalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_AdminLogin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="50" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="PassWord" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Function Name="getAminities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="getLocFeature" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_getaminitiesEdit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PropertyId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_getLocfeatureEdit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PropertyId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_getSimilarProperties" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PropertyId" Type="int" Mode="In" />
+          <Parameter Name="CountryId" Type="int" Mode="In" />
+          <Parameter Name="RegionId" Type="int" Mode="In" />
+          <Parameter Name="CityId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="udf_MoneyFormat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
+          <Parameter Name="amount" Type="money" Mode="In" />
+        </Function>
+        <EntityContainer Name="DB_Dev_JaipalModelStoreContainer">
+          <EntitySet Name="tbl_AdminLogin" EntityType="Self.tbl_AdminLogin" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_Dev_JaipalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_AdminLogin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="DB_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_AdminLogin" EntityType="Self.tbl_AdminLogin" />
+          <FunctionImport Name="getAminities" ReturnType="Collection(String)" />
+          <FunctionImport Name="getLocFeature" ReturnType="Collection(String)" />
+          <FunctionImport Name="sp_getaminitiesEdit" ReturnType="Collection(DB_Dev_JaipalModel.sp_getaminitiesEdit_Result)">
+            <Parameter Name="PropertyId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_getLocfeatureEdit" ReturnType="Collection(DB_Dev_JaipalModel.sp_getLocfeatureEdit_Result)">
+            <Parameter Name="PropertyId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_getSimilarProperties" ReturnType="Collection(DB_Dev_JaipalModel.sp_getSimilarProperties_Result)">
+            <Parameter Name="PropertyId" Mode="In" Type="Int32" />
+            <Parameter Name="CountryId" Mode="In" Type="Int32" />
+            <Parameter Name="RegionId" Mode="In" Type="Int32" />
+            <Parameter Name="CityId" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_getaminitiesEdit_Result">
+          <Property Type="Int32" Name="AminityID" Nullable="false" />
+          <Property Type="String" Name="AminityName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="AminityValue" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="IsSelected" Nullable="true" />
+          <Property Type="Int32" Name="PropertyAminityID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_getLocfeatureEdit_Result">
+          <Property Type="Int32" Name="LocFeatureID" Nullable="false" />
+          <Property Type="String" Name="LocFeatureName" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="IsSelected" Nullable="true" />
+          <Property Type="Int32" Name="PropertyLocFeatureID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_getSimilarProperties_Result">
+          <Property Type="String" Name="ThumbnailImagePath" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="PropertyName" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="PriceInINR" Nullable="true" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_Dev_JaipalModelStoreContainer" CdmEntityContainer="DB_Entities">
+          <EntitySetMapping Name="tbl_AdminLogin">
+            <EntityTypeMapping TypeName="DB_Dev_JaipalModel.tbl_AdminLogin">
+              <MappingFragment StoreEntitySet="tbl_AdminLogin">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="getAminities" FunctionName="DB_Dev_JaipalModel.Store.getAminities" />
+          <FunctionImportMapping FunctionImportName="getLocFeature" FunctionName="DB_Dev_JaipalModel.Store.getLocFeature" />
+          <FunctionImportMapping FunctionImportName="sp_getaminitiesEdit" FunctionName="DB_Dev_JaipalModel.Store.sp_getaminitiesEdit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_Dev_JaipalModel.sp_getaminitiesEdit_Result">
+                <ScalarProperty Name="AminityID" ColumnName="AminityID" />
+                <ScalarProperty Name="AminityName" ColumnName="AminityName" />
+                <ScalarProperty Name="AminityValue" ColumnName="AminityValue" />
+                <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+                <ScalarProperty Name="PropertyAminityID" ColumnName="PropertyAminityID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_getLocfeatureEdit" FunctionName="DB_Dev_JaipalModel.Store.sp_getLocfeatureEdit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_Dev_JaipalModel.sp_getLocfeatureEdit_Result">
+                <ScalarProperty Name="LocFeatureID" ColumnName="LocFeatureID" />
+                <ScalarProperty Name="LocFeatureName" ColumnName="LocFeatureName" />
+                <ScalarProperty Name="IsSelected" ColumnName="IsSelected" />
+                <ScalarProperty Name="PropertyLocFeatureID" ColumnName="PropertyLocFeatureID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_getSimilarProperties" FunctionName="DB_Dev_JaipalModel.Store.sp_getSimilarProperties">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_Dev_JaipalModel.sp_getSimilarProperties_Result">
+                <ScalarProperty Name="ThumbnailImagePath" ColumnName="ThumbnailImagePath" />
+                <ScalarProperty Name="PropertyName" ColumnName="PropertyName" />
+                <ScalarProperty Name="PriceInINR" ColumnName="PriceInINR" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
